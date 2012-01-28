@@ -17,13 +17,8 @@ public class PersonManager {
 	EntityManager em;
 
 	public void addPerson(Person person) {
-		Person newPerson = new Person();
-
-		newPerson.setFirstName(person.getFirstName());
-		newPerson.setPin(person.getPin());
-		newPerson.setRegistrationDate(person.getRegistrationDate());
-
-		em.persist(newPerson);
+		person.setId(null);
+		em.persist(person);
 	}
 
 	public void deletePerson(Person person) {
@@ -38,7 +33,7 @@ public class PersonManager {
 
 	public List<Car> getOwnedCars(Person person) {
 		person = em.find(Person.class, person.getId());
-		// lazy loading here - try this code without (shallow) copying
+		// lazy loading here - try this code without this (shallow) copying
 		List<Car> cars = new ArrayList<Car>(person.getCars());
 		return cars;
 	}
